@@ -1,18 +1,26 @@
-import React from "react";
-//import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 //import { Signup, addEmployees } from "./store/reducers/UserReducer";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Login from './pages/Login';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from "./pages/Login";
+//import Login from '../src/pages/Login';
 import Signup from './pages/Signup';
 import Welcome from './pages/Welcome';
+import { registerUser } from "./store/reducers/UserReducer";
 
 const App = () => {
-  return(
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(registerUser());
+  }, []);
+
+  return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
-        <Route path='/dashboard' element={<Welcome/>} />
+        <Route path='/' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/dashboard' element={<Welcome />} />
       </Routes>
     </BrowserRouter>
   )
