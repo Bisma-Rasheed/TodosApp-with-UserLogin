@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 
-
+// let navigate = useNavigate();
 export const registerUser = createAsyncThunk('userSlice', async (data, thunkApi) => {
     const requestOptions = {
         method: 'POST',
@@ -12,28 +13,32 @@ export const registerUser = createAsyncThunk('userSlice', async (data, thunkApi)
     return response.json();
 });
 
-export const fetchUser = createAsyncThunk('userSlice', async () => {
-    const response = await fetch('http://localhost:3001/readuser');
-    return response.json();
-})
+export const fetchUser = createAsyncThunk('userSlice', async (data, thunkApi) => {
 
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
+    const response = await fetch('http://localhost:3001/readuser', requestOptions);
+    return response.json();
+});
+
+//let navigate = useNavigate();
 const initialState = {
     users: [],
+    //navigate : useNavigate(),
     employees: [],
     isLoggedIn: false,
-    currentUser: {}
+    currentUser: {},
+    error: ''
 }
 const UserReducer = createSlice({
+
     name: 'userSlice',
     initialState,
     reducers: {
-        signUp: (state, action) => {
-            state.users = [...state.users, action.payload]
-        },
-
-        addEmployees: (state, action) => {
-            state.employees = [...state.employees, action.payload]
-        },
 
         loggingIn: (state, action) => {
             state.isLoggedIn = action.payload
@@ -55,9 +60,24 @@ const UserReducer = createSlice({
             console.log('request rejected');
         },
         [fetchUser.fulfilled]: (state, action) => {
-            console.log('fulfilled');
-            state.currentUser = action.payload;
-            state.isLoggedIn = true;
+            //console.log('fetch user fulfilled');
+            //console.log(action.payload.data);
+            if (!action.payload.data) {
+                console.log('I m in data')
+                state.error = action.payload.error;
+            }
+            else { 
+                state.currentUser = action.payload.data;
+                state.isLoggedIn = true;  
+                console.log('habfh')
+            }
+
+        },
+        [fetchUser.pending]: () => {
+            console.log('fetch user pending');
+        },
+        [fetchUser.rejected]: () => {
+            console.log('fetch user rejected');
         }
     }
 

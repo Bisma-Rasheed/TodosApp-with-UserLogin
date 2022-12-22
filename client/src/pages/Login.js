@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { currentUser, loggingIn, registerUser } from "../store/reducers/UserReducer";
+import { currentUser, fetchUser, loggingIn } from "../store/reducers/UserReducer";
 
 const Login = () => {
 
     const dispatch = useDispatch();
-    dispatch(loggingIn(false));
-    dispatch(currentUser({}));
-    
-    const users = useSelector((state) => state.userSlice.users);
+    //dispatch(loggingIn(false));
+    //dispatch(currentUser({}));
+
+    //const users = useSelector((state) => state.userSlice.users);
+     const loggedInState = useSelector((state) => state.userSlice.isLoggedIn);
+     const currentUser  = useSelector((state)=>state.userSlice.currentUser);
+    const error = useSelector((state) => state.userSlice.error);
     let navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -22,30 +25,25 @@ const Login = () => {
 
     const validate = (e) => {
         e.preventDefault();
+
+
+        dispatch(fetchUser(obj));
         setUsername('');
         setPassword('');
-        
-        
-        if (users.length === 0) {
-            alert('The username or password is incorrect');
-        }
+        //console.log('hehe'+loggedInState);
 
-        for (var i = 0; i < users.length; i++) {
-            
-            if (users[i].username === obj.un && users[i].password === obj.pw) {
-                
-                dispatch(loggingIn(true));
-                dispatch(currentUser(users[i]));
-                navigate('/dashboard');
+        //const loggedInState = useSelector((state) => state.userSlice.isLoggedIn);
+        //console.log(loggedInState);
+        // if (error==='' && currentUser==={}) {
+        //     console.log('i am here');
+        //     alert('successfully logged in');
+        //     navigate('/dashboard');
+        // }
+        // else {
+        //     console.log('i am here2')
+        //     alert(error);
+        // }
 
-                alert('successfully logged in')
-                break;
-
-            }
-            else if (i === users.length - 1) {
-                alert('username or password is incorrect');
-            }
-        }
     }
 
     return (
@@ -74,7 +72,7 @@ const Login = () => {
                     <Link to="/signup" style={{ color: "white" }}>Signup</Link>
                 </form>
             </div>
-            
+
         </>
     )
 }
