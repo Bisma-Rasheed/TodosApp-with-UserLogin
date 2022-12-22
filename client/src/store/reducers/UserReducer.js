@@ -2,10 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
-export const registerUser = createAsyncThunk('userSlice', async () => {
-    const response = await fetch("http://localhost:3001/readuser");
+export const registerUser = createAsyncThunk('userSlice', async (data, thunkApi) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    };
+    const response = await fetch("http://localhost:3001/adduser", requestOptions);
     return response.json();
 });
+
+export const fetchUser = createAsyncThunk('userSlice', async () => {
+    const response = await fetch('http://localhost:3001/readuser');
+    return response.json();
+})
 
 const initialState = {
     users: [],
@@ -39,11 +49,15 @@ const UserReducer = createSlice({
         },
         [registerUser.fulfilled]: (state, action) => {
             console.log('fulfilled');
-            //state.currentUser = action.payload;
-            state.users = action.payload
+            alert(action.payload.message);
         },
-        [registerUser.rejected]: (state, action) => {
+        [registerUser.rejected]: () => {
             console.log('request rejected');
+        },
+        [fetchUser.fulfilled]: (state, action) => {
+            console.log('fulfilled');
+            state.currentUser = action.payload;
+            state.isLoggedIn = true;
         }
     }
 

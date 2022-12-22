@@ -10,10 +10,10 @@ import { registerUser } from "./store/reducers/UserReducer";
 
 const App = () => {
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(registerUser());
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(registerUser());
+  // }, []);
 
   return (
     <BrowserRouter>

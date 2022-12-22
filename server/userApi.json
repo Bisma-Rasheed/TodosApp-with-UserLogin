@@ -1,14 +1,1 @@
-[
-    {
-        "username": "bisma",
-        "firstname": "Bisma",
-        "lastname": "Rasheed",
-        "password": "123"
-    },
-    {
-        "username": "shahnaz",
-        "firstname": "Shahnaz",
-        "lastname": "Rasheed",
-        "password": "234"
-    }
-]
+[{"firstname":"Bisma","lastname":"Rasheed","username":"Bisma Rasheed","password":"123"},{"firstname":"Moeez","lastname":"Ahmed","username":"Moeez Ahmed","password":"234"}]

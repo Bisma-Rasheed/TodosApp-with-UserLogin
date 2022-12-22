@@ -8,14 +8,7 @@ const Login = () => {
     const dispatch = useDispatch();
     dispatch(loggingIn(false));
     dispatch(currentUser({}));
-    // for(var i=0;i<=1;i++){
-    //     dispatch(registerUser());
-    // }
     
-    // useEffect(()=>{
-    //     dispatch(registerUser());
-    // },[]);
-    //console.log(useSelector((state)=>state.userSlice.currentUser));
     const users = useSelector((state) => state.userSlice.users);
     let navigate = useNavigate();
 
@@ -31,17 +24,16 @@ const Login = () => {
         e.preventDefault();
         setUsername('');
         setPassword('');
-        alert(obj.un+ ' '+obj.pw)
-        alert(users[0].username + ' '+users[0].password)
+        
+        
         if (users.length === 0) {
             alert('The username or password is incorrect');
         }
 
         for (var i = 0; i < users.length; i++) {
-            alert('I am in loop')
-            alert(users[i].username + ' ' + users[i].password)
+            
             if (users[i].username === obj.un && users[i].password === obj.pw) {
-                alert('I am in loop2')
+                
                 dispatch(loggingIn(true));
                 dispatch(currentUser(users[i]));
                 navigate('/dashboard');
@@ -51,7 +43,7 @@ const Login = () => {
 
             }
             else if (i === users.length - 1) {
-                alert('username or password is incorrect'+users.length);
+                alert('username or password is incorrect');
             }
         }
     }

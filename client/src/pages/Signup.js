@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../store/reducers/UserReducer";
+import { registerUser, signUp } from "../store/reducers/UserReducer";
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -25,31 +25,12 @@ const Signup = () => {
 
 
         if (firstname !== "" && lastname !== "" && username !== "" && password !== "") {
-            if (users.length === 0) {
-                dispatch(signUp(obj));
-                setFirstname('');
-                setLastname('');
-                setUsername('');
-                setPassword('');
-                navigate('/');
-            }
-            else {
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].username === obj.username) {
-                        alert('username already exist');
-                        break;
-                    }
-                    else if (users[i].username !== obj.username && i === users.length - 1) {
-                        dispatch(signUp(obj));
-                        setFirstname('');
-                        setLastname('');
-                        setUsername('');
-                        setPassword('');
-                        navigate('/');
-                        break;
-                    }
-                }
-            }
+            dispatch(registerUser(obj));
+            setFirstname('');
+            setLastname('');
+            setUsername('');
+            setPassword('');
+            navigate('/');
         }
         else{
             alert('input fields must not be empty');
