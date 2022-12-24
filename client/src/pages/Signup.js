@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser, signUp } from "../store/reducers/UserReducer";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../store/reducers/UserReducer";
 
 const Signup = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const users = useSelector((state) => state.userSlice.users);
 
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');

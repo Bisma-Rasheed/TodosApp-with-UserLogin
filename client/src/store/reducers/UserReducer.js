@@ -25,11 +25,8 @@ export const fetchUser = createAsyncThunk('userSlice/read', async (data, thunkAp
 
 
 const initialState = {
-    users: [],
-    employees: [],
-    isLoggedIn: false,
     currentUser: {},
-    error: '',
+    isLoggedIn: false,
     loader: false,
     isError: false
 }
@@ -82,5 +79,5 @@ const UserReducer = createSlice({
 
 });
 
-export const { signUp, addEmployees, loggingIn, currentUser } = UserReducer.actions;
+export const { loggingIn, currentUser } = UserReducer.actions;
 export default UserReducer.reducer;

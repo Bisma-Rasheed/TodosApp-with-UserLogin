@@ -4,7 +4,6 @@ import {Link}  from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
-import Login from "./Login";
 
 const Welcome = () => {
     
