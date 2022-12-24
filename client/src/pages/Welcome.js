@@ -2,13 +2,16 @@
 import React from "react";
 import {Link}  from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import Login from "./Login";
 
 const Welcome = () => {
     
-    const {currentUser, loader} = useSelector((state) => state.userSlice);
+    let navigate = useNavigate();
+    const {currentUser, loader, isError} = useSelector((state) => state.userSlice);
 
-    return !loader ?
+    return !isError ? (!loader ?
         <>
         <nav className="navbar">{currentUser.firstname} {currentUser.lastname}<Link to="/">Log out</Link></nav>
             <div>
@@ -16,7 +19,7 @@ const Welcome = () => {
                 <p>Your User id: {currentUser.username}</p>
             </div>
         </> :
-        <Loader/>
+        <Loader/>) : (navigate('/'))
     
 }
 

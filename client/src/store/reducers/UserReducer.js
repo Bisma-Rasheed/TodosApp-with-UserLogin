@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 
 export const registerUser = createAsyncThunk('userSlice/add', async (data, thunkApi) => {
     const requestOptions = {
@@ -31,7 +30,8 @@ const initialState = {
     isLoggedIn: false,
     currentUser: {},
     error: '',
-    loader: false
+    loader: false,
+    isError: false
 }
 const UserReducer = createSlice({
 
@@ -60,37 +60,20 @@ const UserReducer = createSlice({
         },
         [fetchUser.pending]: (state, action) => {
             state.loader = true;
-            // console.log('loader:'+state.loader)
-            // console.log('fetch user pending');
         },
         [fetchUser.fulfilled]: (state, action) => {
-            //var string = action.payload.data;
-            //var subString = "The username";
-            //var bool = string.some()
-            //console.log(action.payload.error)
             state.loader = false;
-            //console.log('loader:'+state.loader)
+            
             if (action.payload.error!==undefined) {
+                state.isError = true;
                 alert(action.payload.error);
-                // console.log('I m in error')
-                // state.error = action.payload.error;
             }
             else {
-                console.log('I am in data');
+                state.isError = false;
                 state.currentUser = action.payload.data;
                 state.isLoggedIn = true;
-                console.log('habfh');
+                alert('successfully logged in');
             }
-            // if (!action.payload.data) {
-            //     console.log('I m in data')
-            //     state.error = action.payload.error;
-            // }
-            // else { 
-            //     state.currentUser = action.payload.data;
-            //     state.isLoggedIn = true;  
-            //     console.log('habfh')
-            // }
-
         },
         [fetchUser.rejected]: () => {
             console.log('fetch user rejected');

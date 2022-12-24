@@ -22,7 +22,6 @@ route.post('/adduser', (req, res) => {
     if (!bool) {
         userData.push(req.body);
         fs.writeFileSync('userApi.json', JSON.stringify(userData));
-        console.log('user added')
         res.send({ message: "user added" });
     }
     else {
