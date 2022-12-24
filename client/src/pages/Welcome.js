@@ -2,20 +2,22 @@
 import React from "react";
 import {Link}  from 'react-router-dom';
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const Welcome = () => {
     
-    const loggedInUser = useSelector((state) => state.userSlice.currentUser);
+    const {currentUser, loader} = useSelector((state) => state.userSlice);
 
-    return (
+    return !loader ?
         <>
-        <nav className="navbar">{loggedInUser.firstname} {loggedInUser.lastname}<Link to="/">Log out</Link></nav>
+        <nav className="navbar">{currentUser.firstname} {currentUser.lastname}<Link to="/">Log out</Link></nav>
             <div>
-                <p className="p1">Welcome {loggedInUser.firstname} {loggedInUser.lastname}</p>
-                <p>Your User id: {loggedInUser.username}</p>
+                <p className="p1">Welcome {currentUser.firstname} {currentUser.lastname}</p>
+                <p>Your User id: {currentUser.username}</p>
             </div>
-        </>
-    )
+        </> :
+        <Loader/>
+    
 }
 
 export default Welcome;

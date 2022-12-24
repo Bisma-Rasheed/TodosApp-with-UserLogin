@@ -1,19 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 
-
-// let navigate = useNavigate();
-export const registerUser = createAsyncThunk('userSlice', async (data, thunkApi) => {
+export const registerUser = createAsyncThunk('userSlice/add', async (data, thunkApi) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     };
     const response = await fetch("http://localhost:3001/adduser", requestOptions);
+    console.log('title'+response)
     return response.json();
 });
 
-export const fetchUser = createAsyncThunk('userSlice', async (data, thunkApi) => {
+export const fetchUser = createAsyncThunk('userSlice/read', async (data, thunkApi) => {
 
     const requestOptions = {
         method: 'POST',
@@ -25,14 +24,14 @@ export const fetchUser = createAsyncThunk('userSlice', async (data, thunkApi) =>
     return response.json();
 });
 
-//let navigate = useNavigate();
+
 const initialState = {
     users: [],
-    //navigate : useNavigate(),
     employees: [],
     isLoggedIn: false,
     currentUser: {},
-    error: ''
+    error: '',
+    loader: false
 }
 const UserReducer = createSlice({
 
@@ -49,7 +48,7 @@ const UserReducer = createSlice({
         }
     },
     extraReducers: {
-        [registerUser.pending]: () => {
+        [registerUser.pending]: (state, action) => {
             console.log('pending');
         },
         [registerUser.fulfilled]: (state, action) => {
@@ -59,22 +58,39 @@ const UserReducer = createSlice({
         [registerUser.rejected]: () => {
             console.log('request rejected');
         },
-        [fetchUser.fulfilled]: (state, action) => {
-            //console.log('fetch user fulfilled');
-            //console.log(action.payload.data);
-            if (!action.payload.data) {
-                console.log('I m in data')
-                state.error = action.payload.error;
-            }
-            else { 
-                state.currentUser = action.payload.data;
-                state.isLoggedIn = true;  
-                console.log('habfh')
-            }
-
+        [fetchUser.pending]: (state, action) => {
+            state.loader = true;
+            // console.log('loader:'+state.loader)
+            // console.log('fetch user pending');
         },
-        [fetchUser.pending]: () => {
-            console.log('fetch user pending');
+        [fetchUser.fulfilled]: (state, action) => {
+            //var string = action.payload.data;
+            //var subString = "The username";
+            //var bool = string.some()
+            //console.log(action.payload.error)
+            state.loader = false;
+            //console.log('loader:'+state.loader)
+            if (action.payload.error!==undefined) {
+                alert(action.payload.error);
+                // console.log('I m in error')
+                // state.error = action.payload.error;
+            }
+            else {
+                console.log('I am in data');
+                state.currentUser = action.payload.data;
+                state.isLoggedIn = true;
+                console.log('habfh');
+            }
+            // if (!action.payload.data) {
+            //     console.log('I m in data')
+            //     state.error = action.payload.error;
+            // }
+            // else { 
+            //     state.currentUser = action.payload.data;
+            //     state.isLoggedIn = true;  
+            //     console.log('habfh')
+            // }
+
         },
         [fetchUser.rejected]: () => {
             console.log('fetch user rejected');

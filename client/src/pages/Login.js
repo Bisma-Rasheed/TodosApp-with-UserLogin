@@ -6,13 +6,14 @@ import { currentUser, fetchUser, loggingIn } from "../store/reducers/UserReducer
 const Login = () => {
 
     const dispatch = useDispatch();
-    //dispatch(loggingIn(false));
-    //dispatch(currentUser({}));
+    dispatch(loggingIn(false));
+    dispatch(currentUser({}));
 
     //const users = useSelector((state) => state.userSlice.users);
-     const loggedInState = useSelector((state) => state.userSlice.isLoggedIn);
-     const currentUser  = useSelector((state)=>state.userSlice.currentUser);
-    const error = useSelector((state) => state.userSlice.error);
+    // const loggedInState = useSelector((state) => state.userSlice.isLoggedIn);
+    // const currentUser = useSelector((state) => state.userSlice.currentUser);
+    // const loader = useSelector((state)=>state.userSlice.loader);
+    // const error = useSelector((state) => state.userSlice.error);
     let navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -25,22 +26,23 @@ const Login = () => {
 
     const validate = (e) => {
         e.preventDefault();
-
+        //console.log("hjghghgh")
 
         dispatch(fetchUser(obj));
         setUsername('');
         setPassword('');
-        //console.log('hehe'+loggedInState);
+        navigate('/dashboard');
+        //console.log('hehe' + loggedInState);
 
         //const loggedInState = useSelector((state) => state.userSlice.isLoggedIn);
-        //console.log(loggedInState);
-        // if (error==='' && currentUser==={}) {
+        // //console.log(loggedInState);
+        // if (loggedInState === true) {
         //     console.log('i am here');
-        //     alert('successfully logged in');
+        //     alert('successfully logged in')
         //     navigate('/dashboard');
         // }
-        // else {
-        //     console.log('i am here2')
+        // else if (error === "The username or password is incorrect") {
+        //     console.log('i am here2');
         //     alert(error);
         // }
 
