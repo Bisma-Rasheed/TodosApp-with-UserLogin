@@ -6,6 +6,7 @@ route.get('/', (req, res) => {
 })
 route.post('/readuser', (req, res) => {
     var userData = JSON.parse(fs.readFileSync('userApi.json'));
+    console.log(userData);
     var [bool, index] = validateUser(userData, req.body);
     if(bool){
         res.send({data: userData[index]});
@@ -29,6 +30,30 @@ route.post('/adduser', (req, res) => {
     }
 
 });
+
+route.post('/addtodo', (req, res)=>{
+    var userData = JSON.parse(fs.readFileSync('userApi.json'));
+    for(var i=0; i<userData.length;i++){
+        if(userData[i].username === req.body.currentUser.username){
+            userData[i].Todos.push(req.body.Todo);
+            fs.writeFileSync('userApi.json', JSON.stringify(userData));
+            res.send({data: userData[i]});
+        }
+    }
+});
+
+route.post('/deletetodo', (req,res)=>{
+    var userData = JSON.parse(fs.readFileSync('userApi.json'));
+    for(var i=0; i<userData.length; i++){
+        if(userData[i].username === req.body.currentUser.username){
+            userData[i].Todos = userData[i].Todos.filter((arrItem, index)=>{
+                return index !== req.body.id
+            });
+            fs.writeFileSync('userApi.json', JSON.stringify(userData));
+            res.send({data: userData[i]});
+        }
+    }
+})
 
 const checkUnique = (userData, user) => {
     if (userData.length === 0) {

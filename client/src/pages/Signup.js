@@ -16,7 +16,8 @@ const Signup = () => {
         firstname: firstname,
         lastname: lastname,
         username: username,
-        password: password
+        password: password,
+        Todos: []
     };
 
     function setData(e) {
@@ -72,7 +73,7 @@ const Signup = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}></input>
                     <br />
-                    <button onClick={setData}>Register</button>
+                    <button className="mainbutton" onClick={setData}>Register</button>
                     <br /><br />
                     <Link to="/" style={{ color: "white" }}>Login</Link>
                 </form>

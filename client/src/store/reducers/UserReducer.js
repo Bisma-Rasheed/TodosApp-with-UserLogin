@@ -23,6 +23,28 @@ export const fetchUser = createAsyncThunk('userSlice/read', async (data, thunkAp
     return response.json();
 });
 
+export const addTodo = createAsyncThunk('userSlice/addtodos', async (data, thunkApi)=>{
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
+    const response = await fetch('http://localhost:3001/addtodo', requestOptions);
+    return response.json();
+});
+
+export const deleteTodo = createAsyncThunk('userSlice/deltodos', async (data, thunkApi)=>{
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
+    const response = await fetch('http://localhost:3001/deletetodo', requestOptions);
+    return response.json();
+});
+
 
 const initialState = {
     currentUser: {},
@@ -74,6 +96,24 @@ const UserReducer = createSlice({
         },
         [fetchUser.rejected]: () => {
             console.log('fetch user rejected');
+        },
+        [addTodo.pending]:()=>{
+            console.log('pending');
+        },
+        [addTodo.fulfilled]: (state, action) => {
+            state.currentUser = action.payload.data
+        },
+        [addTodo.rejected]: ()=>{
+            console.log('request rejected');
+        },
+        [deleteTodo.pending]:()=>{
+            console.log('pending');
+        },
+        [deleteTodo.fulfilled]: (state, action) => {
+            state.currentUser = action.payload.data
+        },
+        [deleteTodo.rejected]: ()=>{
+            console.log('request rejected');
         }
     }
 

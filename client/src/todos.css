@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.center_div {
+  background: repeat-x scroll center top transparent;
+  width: 25%;
+  height: 85vh;
+  margin-top: 30px;
+  margin-left: 320px;
+  margin-bottom: 200px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.todoheader {
+  height: 80px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  background-color: rgb(76, 12, 76);
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+.todoinput {
+  width: 60%;
+  height: 30px;
+  top: 10px;
+  margin-left: 20px;
+  border: none;
+  outline: none;
+  border-radius: 0%;
+  background: transparent;
+  font-size: 20px;
+  font-weight: 500;
+  border-bottom: 2px solid #8566aa;
+  text-align: center;
+  outline: none;
+}
+
+.todobutton {
+  border-radius: 30%;
+  margin-top: 5px;
+  margin-left: 12px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  border-color: transparent;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  background-color: rgb(76, 12, 76);
+}
+
+.todobutton:hover {
+  background-color: rgb(44, 97, 44);
+  cursor: pointer;
+}
+
+.todoorderlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.todolist {
+  display: flex;
+  flex-direction: row;
+  align-self: auto;
+  text-align: center;
+  text-transform: capitalize;
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  min-height: 30px;
+  margin-right: 185px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: rgb(76, 12, 76);
+  list-style: none;
+}
+
+span {
+  text-align: center;
+  padding: 2px;
+}
+
+.spanbutton {
+  border-radius: 50%;
+  margin: 7px;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  color: white;
+  background-color: rgb(76, 12, 76);
+  ;
+}
+
+.spanbutton:hover {
+  background-color: rgb(166, 5, 5);
+  cursor: pointer;
+}
+

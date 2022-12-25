@@ -48,7 +48,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}></input>
                     <br />
-                    <button onClick={validate}>Login</button>
+                    <button className="mainbutton" onClick={validate}>Login</button>
                     <br /><br />
                     <Link to="/signup" style={{ color: "white" }}>Signup</Link>
                 </form>
