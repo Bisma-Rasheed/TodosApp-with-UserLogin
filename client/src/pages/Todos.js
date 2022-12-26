@@ -24,7 +24,7 @@ const Todos = () => {
             currentUser: currentUser,
             Todo: data
         }
-        if (data !== '' && currentUser.Todos.length < 7) {
+        if (data !== '') {
             dispatch(addTodo(obj));
             setData('');
         }
@@ -41,12 +41,11 @@ const Todos = () => {
         dispatch(deleteTodo(obj));
     }
 
-
     return (
         <>
             <div className='center_div'>
                 <br />
-                <h1 className='todoheader'>To-Do List</h1>
+                <h1 >To-Do List</h1>
                 <br />
                 <input className='todoinput' type='text'
                     placeholder='Add an item..'

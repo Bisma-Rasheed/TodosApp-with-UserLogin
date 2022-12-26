@@ -23,7 +23,6 @@ const Welcome = () => {
                     <Todos />
                 </span>
             </div>
-
         </> :
         <Loader />) : (navigate('/'))
 

@@ -1,1 +1,1 @@
-[{"firstname":"Bisma","lastname":"Rasheed","username":"bisma","password":"123","Todos":[]},{"firstname":"Moeez","lastname":"Ahmed","username":"Moeez Ahmed","password":"234","Todos":[]}]
+[{"firstname":"Bisma","lastname":"Rasheed","username":"bisma","password":"123","Todos":["Learn NodeJs","Do some projects on React and Node","Learn JWT and Hashing","code a MERN project"]},{"firstname":"Moeez","lastname":"Ahmed","username":"Moeez Ahmed","password":"234","Todos":[]}]

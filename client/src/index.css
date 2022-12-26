@@ -128,6 +128,19 @@ span {
   flex-direction: row;
 }
 
+/* ol{
+  padding: 5px;
+}
+li{
+  list-style: none;
+  padding: 10px;
+}
+
+.apnidiv{
+  justify-items: auto;
+  margin: 0;
+  padding: 0;
+} */
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .main_div {
