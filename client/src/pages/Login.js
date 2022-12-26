@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { currentUser, fetchUser, loggingIn } from "../store/reducers/UserReducer";
 
 const Login = () => {
-
     const dispatch = useDispatch();
     dispatch(loggingIn(false));
     dispatch(currentUser({}));

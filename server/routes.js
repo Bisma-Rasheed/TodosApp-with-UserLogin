@@ -6,7 +6,6 @@ route.get('/', (req, res) => {
 })
 route.post('/readuser', (req, res) => {
     var userData = JSON.parse(fs.readFileSync('userApi.json'));
-    console.log(userData);
     var [bool, index] = validateUser(userData, req.body);
     if(bool){
         res.send({data: userData[index]});

@@ -29,7 +29,7 @@ const Todos = () => {
             setData('');
         }
         else {
-            alert('Possible issues:\n1. Input field must not be empty\n2. Limit exceeded');
+            alert('Input field must not be empty');
         }
     }
 
@@ -45,7 +45,7 @@ const Todos = () => {
         <>
             <div className='center_div'>
                 <br />
-                <h1 >To-Do List</h1>
+                <h1 className='todoheader'>To-Do List</h1>
                 <br />
                 <input className='todoinput' type='text'
                     placeholder='Add an item..'
