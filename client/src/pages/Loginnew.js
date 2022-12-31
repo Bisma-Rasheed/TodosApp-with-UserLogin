@@ -1,6 +1,6 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { currentUser, fetchUser, loggingIn } from "../store/reducers/UserReducer";
 import userIcon from '../Images/user.png';
 import './login.css';
@@ -23,10 +23,16 @@ const Loginnew = () => {
     const validate = (e) => {
         e.preventDefault();
 
-        dispatch(fetchUser(obj));
-        setUsername('');
-        setPassword('');
-        navigate('/dashboard');
+        if (username !== '' && password !== '') {
+            dispatch(fetchUser(obj));
+            setUsername('');
+            setPassword('');
+            navigate('/dashboard');
+        }
+        else {
+            alert('input fields must not be empty');
+        }
+
     }
 
     return (
@@ -37,16 +43,12 @@ const Loginnew = () => {
                 <form>
                     <div className="inputBox">
                         <input
-                            id="uname"
                             type="text"
-                            name="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username" />
                         <input
-                            id="pass"
                             type="password"
-                            name="Password"
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />

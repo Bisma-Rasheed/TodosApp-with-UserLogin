@@ -13,7 +13,7 @@ const Welcome = () => {
     return !isError ? (!loader ?
         <>
             <div className="upperdiv">
-                <nav style={{ color: "aliceblue" }} className="navbar1">{currentUser.firstname} {currentUser.lastname}<Link style={{ color: "aliceblue" }} to="/">Log out</Link></nav>
+                <nav style={{ color: "black" }} className="navbar1">{currentUser.firstname} {currentUser.lastname}<Link style={{ color: "aliceblue" }} to="/">Log out</Link></nav>
                 <span className="meridiv">
                     <div>
                         <p className="p1">Welcome {currentUser.firstname} {currentUser.lastname}</p>

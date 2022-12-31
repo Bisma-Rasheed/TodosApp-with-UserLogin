@@ -46,31 +46,23 @@ const Signupnew = () => {
                 <h3>Sign-In</h3>
                 <form>
                     <div className="inputBox">
-                        <input
-                            id="fname"
-                            type="text"
-                            name="Firstname"
+                        <input                         
+                            type="text"                          
                             value={firstname}
                             onChange={(e) => setFirstname(e.target.value)}
                             placeholder="First Name" />
-                        <input
-                            id="lname"
+                        <input                          
                             type="text"
-                            name="Lastname"
                             value={lastname}
                             onChange={(e) => setLastname(e.target.value)}
                             placeholder="Last Name" />
-                        <input
-                            id="uname"
-                            type="text"
-                            name="Username"
+                        <input                       
+                            type="text"                           
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Username" />
-                        <input
-                            id="pass"
-                            type="password"
-                            name="Password"
+                        <input                        
+                            type="password"           
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
