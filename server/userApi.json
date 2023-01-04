@@ -1,1 +1,26 @@
-[{"firstname":"Bisma","lastname":"Rasheed","username":"bisma","password":"123","Todos":["Bisma rasheed","insia taha","bushra fatima","anum jawaid","moniqa ashraf"]},{"firstname":"Moeez","lastname":"Ahmed","username":"Moeez Ahmed","password":"234","Todos":[]},{"firstname":"Insia","lastname":"Taha","username":"insia","password":"insia","Todos":[]}]
+[
+    {
+        "firstname": "Bisma",
+        "lastname": "Rasheed",
+        "username": "bisma",
+        "password": "123",
+        "Todos": [
+            "insia taha",
+            "bushra fatima"
+        ]
+    },
+    {
+        "firstname": "Moeez",
+        "lastname": "Ahmed",
+        "username": "Moeez Ahmed",
+        "password": "234",
+        "Todos": []
+    },
+    {
+        "firstname": "Insia",
+        "lastname": "Taha",
+        "username": "insia",
+        "password": "insia",
+        "Todos": []
+    }
+]
