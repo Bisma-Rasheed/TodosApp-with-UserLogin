@@ -8,7 +8,7 @@ import Todos from "./Todos";
 const Welcome = () => {
 
     let navigate = useNavigate();
-    const { currentUser, loader, isError, error } = useSelector((state) => state.userSlice);
+    const { currentUser, loader, isError} = useSelector((state) => state.userSlice);
 
     return !isError ? (!loader ?
         <>

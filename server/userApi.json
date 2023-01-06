@@ -1,0 +1,26 @@
+[
+    {
+        "firstname": "Bisma",
+        "lastname": "Rasheed",
+        "username": "bisma",
+        "password": "123",
+        "Todos": [
+            "insia taha",
+            "bushra fatima"
+        ]
+    },
+    {
+        "firstname": "Moeez",
+        "lastname": "Ahmed",
+        "username": "Moeez Ahmed",
+        "password": "234",
+        "Todos": []
+    },
+    {
+        "firstname": "Insia",
+        "lastname": "Taha",
+        "username": "insia",
+        "password": "insia",
+        "Todos": []
+    }
+]
