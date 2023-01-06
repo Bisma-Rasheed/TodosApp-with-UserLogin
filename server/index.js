@@ -9,13 +9,16 @@ const mongoose = require('mongoose');
 //api and data serving using mongodb
 const route = require('./routesnew');
 
+mongoose.set("strictQuery", false);
 //connection to mongodb using mongoose package
-mongoose.connect("mongodb://localhost:27017/userportal", {
+//"mongodb://127.0.0.1:27017/userportal"
+mongoose.connect("mongodb+srv://BismaRasheed:bisma@cluster0.pnt338c.mongodb.net/userportal", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
     console.log('connection successful..');
 }).catch((err) => console.log(err));
+
 
 app.use(cors());
 app.use(express.urlencoded({extended:false}))
