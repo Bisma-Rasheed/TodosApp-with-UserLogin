@@ -2,6 +2,9 @@ const express = require('express')
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 //api and data serving using node file system
 // const route = require('./routes');
@@ -11,8 +14,7 @@ const route = require('./routesnew');
 
 mongoose.set("strictQuery", false);
 //connection to mongodb using mongoose package
-//"mongodb://127.0.0.1:27017/userportal"
-mongoose.connect("mongodb+srv://BismaRasheed:bisma@cluster0.pnt338c.mongodb.net/userportal", {
+mongoose.connect(`mongodb+srv://BismaRasheed:${process.env.DB_PW}@cluster0.pnt338c.mongodb.net/userportal`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -29,3 +31,7 @@ app.use('/', route);
 app.listen(3001, () => {
     console.log('server listening on 3001');
 })
+
+
+//mongodb+srv://BismaRasheed:bisma@cluster0.pnt338c.mongodb.net/userportal
+//"mongodb://127.0.0.1:27017/userportal"
