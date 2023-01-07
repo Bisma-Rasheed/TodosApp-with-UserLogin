@@ -1,4 +1,5 @@
 const route = require('express').Router();
+const {hashSync, genSaltSync, compareSync} = require('bcrypt');
 
 //requires mongoose
 const mongoose = require('mongoose');
@@ -12,24 +13,37 @@ route.get('/', (req, res) => {
 });
 
 route.post('/readuser', async (req, res) => {
-    var userData = await User.find({ username: req.body.un });
-    if (userData[0] !== undefined && userData[0].password === req.body.pw) {
-        res.send({ data: userData[0] });
+
+    var userData = await User.find({ username: req.body.username });
+    if(userData[0]!==undefined){
+        const isvalidPassword = compareSync(req.body.password, userData[0].password);
+        if (isvalidPassword) {
+            res.send({ data: userData[0]});
+        }
+        else {
+            res.send({ error: 'The password is incorrect' });
+        }
     }
-    else {
-        res.send({ error: 'The username or password is incorrect' });
+    else{
+        res.send({error: 'The user doesnt exist'});
     }
+    
+
+    
 
 });
 
 route.post('/adduser', async (req, res) => {
+    const salt = genSaltSync(10);
+    const password = hashSync(req.body.password, salt);
+  
     var userData = await User.find({ username: req.body.username });
     if (userData[0] === undefined) {
         const user = new User({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             username: req.body.username,
-            password: req.body.password,
+            password: password,
             Todos: req.body.Todos
         });
 
@@ -68,4 +82,3 @@ route.post('/deletetodo', async (req, res) => {
 });
 
 module.exports = route;
-

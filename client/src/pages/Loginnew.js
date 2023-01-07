@@ -16,8 +16,8 @@ const Loginnew = () => {
     const [password, setPassword] = useState('');
 
     var obj = {
-        un: username,
-        pw: password
+        username: username,
+        password: password
     };
 
     const validate = (e) => {
