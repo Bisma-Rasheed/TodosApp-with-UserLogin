@@ -17,12 +17,13 @@ const Todos = () => {
 
     const dispatch = useDispatch();
     const [data, setData] = useState('');
-    const { currentUser } = useSelector((state) => state.userSlice);
+    const { currentUser, token } = useSelector((state) => state.userSlice);
 
     const addItems = () => {
         var obj = {
             currentUser: currentUser,
-            Todo: data
+            Todo: data,
+            token: token
         }
         if (data !== '') {
             dispatch(addTodo(obj));
@@ -36,7 +37,8 @@ const Todos = () => {
     const deleteItems = (todoId) => { //id of item we want to delete
         var obj = {
             currentUser: currentUser,
-            id: todoId
+            id: todoId,
+            token: token
         }
         dispatch(deleteTodo(obj));
     }

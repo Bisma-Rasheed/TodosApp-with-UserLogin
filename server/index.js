@@ -14,7 +14,7 @@ const route = require('./routesnew');
 
 mongoose.set("strictQuery", false);
 //connection to mongodb using mongoose package
-mongoose.connect(`mongodb+srv://BismaRasheed:${process.env.DB_PW}@cluster0.pnt338c.mongodb.net/userportal`, {
+mongoose.connect(`mongodb+srv://BismaRasheed:bisma@cluster0.pnt338c.mongodb.net/userportal`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {

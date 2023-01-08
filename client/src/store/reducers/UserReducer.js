@@ -7,7 +7,7 @@ export const registerUser = createAsyncThunk('userSlice/add', async (data, thunk
         body: JSON.stringify(data)
     };
     const response = await fetch("http://localhost:3001/adduser", requestOptions);
-    console.log('title'+response)
+    console.log('title' + response)
     return response.json();
 });
 
@@ -15,7 +15,10 @@ export const fetchUser = createAsyncThunk('userSlice/read', async (data, thunkAp
 
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+
+        },
         body: JSON.stringify(data)
     }
 
@@ -23,10 +26,13 @@ export const fetchUser = createAsyncThunk('userSlice/read', async (data, thunkAp
     return response.json();
 });
 
-export const addTodo = createAsyncThunk('userSlice/addtodos', async (data, thunkApi)=>{
+export const addTodo = createAsyncThunk('userSlice/addtodos', async (data, thunkApi) => {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + data.token
+        },
         body: JSON.stringify(data)
     }
 
@@ -34,10 +40,13 @@ export const addTodo = createAsyncThunk('userSlice/addtodos', async (data, thunk
     return response.json();
 });
 
-export const deleteTodo = createAsyncThunk('userSlice/deltodos', async (data, thunkApi)=>{
+export const deleteTodo = createAsyncThunk('userSlice/deltodos', async (data, thunkApi) => {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + data.token
+        },
         body: JSON.stringify(data)
     }
 
@@ -47,10 +56,17 @@ export const deleteTodo = createAsyncThunk('userSlice/deltodos', async (data, th
 
 
 const initialState = {
-    currentUser: {},
+    currentUser: {
+        firstname: '',
+        lastname: '',
+        username: '',
+        password: '',
+        Todos: []
+    },
     isLoggedIn: false,
     loader: false,
-    isError: false
+    isError: false,
+    token: ''
 }
 const UserReducer = createSlice({
 
@@ -82,8 +98,8 @@ const UserReducer = createSlice({
         },
         [fetchUser.fulfilled]: (state, action) => {
             state.loader = false;
-            
-            if (action.payload.error!==undefined) {
+
+            if (action.payload.error !== undefined) {
                 state.isError = true;
                 alert(action.payload.error);
             }
@@ -91,28 +107,29 @@ const UserReducer = createSlice({
                 state.isError = false;
                 state.currentUser = action.payload.data;
                 state.isLoggedIn = true;
+                state.token = action.payload.accessToken
                 alert('successfully logged in');
             }
         },
         [fetchUser.rejected]: () => {
             console.log('fetch user rejected');
         },
-        [addTodo.pending]:()=>{
+        [addTodo.pending]: () => {
             console.log('pending');
         },
         [addTodo.fulfilled]: (state, action) => {
             state.currentUser = action.payload.data
         },
-        [addTodo.rejected]: ()=>{
+        [addTodo.rejected]: () => {
             console.log('request rejected');
         },
-        [deleteTodo.pending]:()=>{
+        [deleteTodo.pending]: () => {
             console.log('pending');
         },
         [deleteTodo.fulfilled]: (state, action) => {
             state.currentUser = action.payload.data
         },
-        [deleteTodo.rejected]: ()=>{
+        [deleteTodo.rejected]: () => {
             console.log('request rejected');
         }
     }

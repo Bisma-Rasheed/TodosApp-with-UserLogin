@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ const Welcome = () => {
 
     let navigate = useNavigate();
     const { currentUser, loader, isError} = useSelector((state) => state.userSlice);
+
 
     return !isError ? (!loader ?
         <>

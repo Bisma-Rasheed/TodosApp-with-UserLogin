@@ -1,5 +1,9 @@
 const route = require('express').Router();
-const {hashSync, genSaltSync, compareSync} = require('bcrypt');
+const { hashSync, genSaltSync, compareSync } = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 //requires mongoose
 const mongoose = require('mongoose');
@@ -12,31 +16,30 @@ route.get('/', (req, res) => {
     res.send('hello from server');
 });
 
+
 route.post('/readuser', async (req, res) => {
 
     var userData = await User.find({ username: req.body.username });
-    if(userData[0]!==undefined){
+    if (userData[0] !== undefined) {
         const isvalidPassword = compareSync(req.body.password, userData[0].password);
         if (isvalidPassword) {
-            res.send({ data: userData[0]});
+            const jwtToken = jwt.sign({ id: userData[0]._id, username: userData[0].username }, process.env.API_SECRET);
+            res.send({ data: userData[0], accessToken: jwtToken });
         }
         else {
             res.send({ error: 'The password is incorrect' });
         }
     }
-    else{
-        res.send({error: 'The user doesnt exist'});
+    else {
+        res.send({ error: 'The user doesnt exist' });
     }
-    
-
-    
 
 });
 
 route.post('/adduser', async (req, res) => {
     const salt = genSaltSync(10);
     const password = hashSync(req.body.password, salt);
-  
+
     var userData = await User.find({ username: req.body.username });
     if (userData[0] === undefined) {
         const user = new User({
@@ -56,6 +59,8 @@ route.post('/adduser', async (req, res) => {
 
 });
 
+route.use('/addtodo', verifyToken);
+
 route.post('/addtodo', async (req, res) => {
     var userData = await User.find({ username: req.body.currentUser.username });
     const _id = userData[0]._id;
@@ -67,6 +72,8 @@ route.post('/addtodo', async (req, res) => {
     res.send({ data: userData });
 });
 
+route.use('/deletetodo', verifyToken);
+
 route.post('/deletetodo', async (req, res) => {
     var userData = await User.find({ username: req.body.currentUser.username });
     var Todos = userData[0].Todos;
@@ -77,8 +84,19 @@ route.post('/deletetodo', async (req, res) => {
         { $set: { Todos: Todos } },
         { new: true }
     )
-    res.send({data: userData});
+    res.send({ data: userData });
 
 });
+
+function verifyToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token == null) return res.sendStatus(401)
+    jwt.verify(token, process.env.API_SECRET, (err, data) => {
+        if (err || data.username !== req.body.currentUser.username) return res.sendStatus(403);
+        next();
+    })
+}
 
 module.exports = route;
