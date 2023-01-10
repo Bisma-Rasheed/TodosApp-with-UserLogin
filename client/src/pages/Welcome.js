@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { Link, redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import Todos from "./Todos";
@@ -9,7 +9,6 @@ const Welcome = () => {
 
     let navigate = useNavigate();
     const { currentUser, loader, isError} = useSelector((state) => state.userSlice);
-
 
     return !isError ? (!loader ?
         <>
@@ -25,6 +24,7 @@ const Welcome = () => {
             </div>
         </> :
         <Loader />) : (navigate('/'))
+        
 
 }
 

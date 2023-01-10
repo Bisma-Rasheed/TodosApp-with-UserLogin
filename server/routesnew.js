@@ -90,11 +90,12 @@ route.post('/deletetodo', async (req, res) => {
 
 function verifyToken(req, res, next) {
     const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (token == null) return res.sendStatus(401)
+    var token = authHeader && authHeader.split(' ')[1];
+    
+    if (token === null) return res.send({ error: 'Unauthorized user' })
     jwt.verify(token, process.env.API_SECRET, (err, data) => {
-        if (err || data.username !== req.body.currentUser.username) return res.sendStatus(403);
+        if (err || data.username !== req.body.currentUser.username) 
+        return  res.send({ error: 'Unauthorized user' });
         next();
     })
 }

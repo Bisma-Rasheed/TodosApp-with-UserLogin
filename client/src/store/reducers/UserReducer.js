@@ -54,7 +54,6 @@ export const deleteTodo = createAsyncThunk('userSlice/deltodos', async (data, th
     return response.json();
 });
 
-
 const initialState = {
     currentUser: {
         firstname: '',
@@ -66,7 +65,7 @@ const initialState = {
     isLoggedIn: false,
     loader: false,
     isError: false,
-    token: ''
+    token: null
 }
 const UserReducer = createSlice({
 
@@ -79,7 +78,8 @@ const UserReducer = createSlice({
         },
 
         currentUser: (state, action) => {
-            state.currentUser = action.payload
+            state.currentUser = action.payload,
+            state.token = null
         }
     },
     extraReducers: {
@@ -118,7 +118,13 @@ const UserReducer = createSlice({
             console.log('pending');
         },
         [addTodo.fulfilled]: (state, action) => {
-            state.currentUser = action.payload.data
+            if (action.payload.error !== undefined) {
+                state.isError = true;
+                alert(action.payload.error);
+            }
+            else {
+                state.currentUser = action.payload.data
+            }
         },
         [addTodo.rejected]: () => {
             console.log('request rejected');
@@ -127,7 +133,13 @@ const UserReducer = createSlice({
             console.log('pending');
         },
         [deleteTodo.fulfilled]: (state, action) => {
-            state.currentUser = action.payload.data
+            if (action.payload.error !== undefined) {
+                state.isError = true;
+                alert(action.payload.error);
+            }
+            else {
+                state.currentUser = action.payload.data
+            }
         },
         [deleteTodo.rejected]: () => {
             console.log('request rejected');
