@@ -78,7 +78,7 @@ const UserReducer = createSlice({
         },
 
         currentUser: (state, action) => {
-            state.currentUser = action.payload,
+            state.currentUser = action.payload;
             state.token = null
         }
     },
